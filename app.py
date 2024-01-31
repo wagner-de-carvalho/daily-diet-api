@@ -27,14 +27,14 @@ def list_meals():
     meals = Meal.query.all()
     list_meals = []
     for meal in meals:
-        list_meals.append({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
+        list_meals.append({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology.strftime("%d/%m/%Y %H:%M")})
     return jsonify({"meals": list_meals})
 
 @app.route('/meal/<int:meal_id>', methods=['GET'])
 def read_meal(meal_id):
     meal = Meal.query.get(meal_id)
     if meal:
-        return jsonify({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
+        return jsonify({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology.strftime("%d/%m/%Y %H:%M")})
     
     return jsonify({"message": "Meal not found"}), 404
 
