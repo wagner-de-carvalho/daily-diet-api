@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, jsonify, request
 from models.meal import Meal
 from database import db
@@ -7,9 +8,20 @@ app.config['SECRET_KEY'] = "secure_secret_key"
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 db.init_app(app)
 
-@app.route('/hello', methods=['GET'])
-def hello():
-    return 'hello'
+@app.route('/meal', methods=['POST'])
+def create_meal():
+    data = request.json
+    name = data.get('name')
+    description = data.get('description')
+    print(name, description)
+
+    if name and description:
+        meal = Meal(name=name, description=description, on_diet=False, chronology=datetime.now())
+        db.session.add(meal)
+        db.session.commit()
+        return jsonify({"message": "Meal saved"})
+    
+    return jsonify({"message": "Error on saving a meal"}), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
