@@ -6,6 +6,7 @@ API for creating, deleting, updating and listing meals.
 - enter `db.create_all()`
 - enter `db.session.commit()`
 - enter `exit()`
+
 Now you'll be able to see the database and table created.
 
 ### Using the API
