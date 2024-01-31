@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "b77cec7e-a6a1-4336-a255-9a8e41dd600b",
+		"name": "Daily Diet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9717618"
+	},
+	"item": [
+		{
+			"name": "Daily Diet API",
+			"item": [
+				{
+					"name": "Create Meal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"A brand new diet\",\n    \"name\": \"sun diet\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseFlaskUrl}}/meal",
+							"host": [
+								"{{baseFlaskUrl}}"
+							],
+							"path": [
+								"meal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Meal",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"start next week\",\n    \"name\": \"Soup diet\",\n    \"on_diet\": false,\n    \"chronology\": \"10/05/24 11:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseFlaskUrl}}/meal/1",
+							"host": [
+								"{{baseFlaskUrl}}"
+							],
+							"path": [
+								"meal",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Meals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseFlaskUrl}}/meal",
+							"host": [
+								"{{baseFlaskUrl}}"
+							],
+							"path": [
+								"meal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Meal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseFlaskUrl}}/meal/1",
+							"host": [
+								"{{baseFlaskUrl}}"
+							],
+							"path": [
+								"meal",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Meal",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseFlaskUrl}}/meal/1",
+							"host": [
+								"{{baseFlaskUrl}}"
+							],
+							"path": [
+								"meal",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
