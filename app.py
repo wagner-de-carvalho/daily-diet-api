@@ -32,12 +32,22 @@ def list_meals():
     return jsonify({"meals": list_meals})
 
 @app.route('/meal/<int:meal_id>', methods=['GET'])
-def read_meals(meal_id):
+def read_meal(meal_id):
     meal = Meal.query.get(meal_id)
     if meal:
         return jsonify({"name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
     
     return jsonify({"message": "Meal not found"}), 404
+
+@app.route('/meal/<int:meal_id>', methods=['DELETE'])
+def delete_meal(meal_id):
+    meal = Meal.query.get(meal_id)
+    if meal:
+        db.session.delete(meal)
+        db.session.commit()
+        return jsonify({"message": f"Meal {meal.name} deleted"})
+    return jsonify({"message": "Meal not found"}), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
