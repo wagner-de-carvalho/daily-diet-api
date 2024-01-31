@@ -3,6 +3,7 @@ API for creating, deleting, updating and listing meals.
 
 ### Setting the application
 - `git clone https://github.com/wagner-de-carvalho/daily-diet-api.git`
+- `cd daily-diet-api`
 - `pip install -r requirements.txt`
 
 ### Creating the database
