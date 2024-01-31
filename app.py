@@ -28,14 +28,15 @@ def list_meals():
     meals = Meal.query.all()
     list_meals = []
     for meal in meals:
-        list_meals.append({"name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
+        print("MEAL: ", meal.id)
+        list_meals.append({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
     return jsonify({"meals": list_meals})
 
 @app.route('/meal/<int:meal_id>', methods=['GET'])
 def read_meal(meal_id):
     meal = Meal.query.get(meal_id)
     if meal:
-        return jsonify({"name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
+        return jsonify({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
     
     return jsonify({"message": "Meal not found"}), 404
 
@@ -48,6 +49,19 @@ def delete_meal(meal_id):
         return jsonify({"message": f"Meal {meal.name} deleted"})
     return jsonify({"message": "Meal not found"}), 404
 
+@app.route('/meal/<int:meal_id>', methods=['PUT'])
+def update_meal(meal_id):
+    data = request.json
+    meal = Meal.query.get(meal_id)
+    if meal:
+        meal.name = data.get('name') if data.get('name') else meal.name
+        meal.description = data.get('description') if data.get('description') else meal.name
+        meal.on_diet = data.get('on_diet') if data.get('on_diet') else meal.on_diet
+        meal.chronology = datetime.now()
+        db.session.commit()
+        return jsonify({"message": f"Meal '{meal.name}' updated"})
+    
+    return jsonify({"message": "Meal not found"}), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
