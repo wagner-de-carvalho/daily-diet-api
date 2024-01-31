@@ -1,6 +1,10 @@
 # daily-diet-api
 API for creating, deleting, updating and listing meals.
 
+### Setting the application
+- `git clone https://github.com/wagner-de-carvalho/daily-diet-api.git`
+- `pip install -r requirements.txt`
+
 ### Creating the database
 - On terminal (linux), enter `flask shell`
 - enter `db.create_all()`
