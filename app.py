@@ -23,5 +23,13 @@ def create_meal():
     
     return jsonify({"message": "Error on saving a meal"}), 400
 
+@app.route('/meal', methods=['GET'])
+def list_meals():
+    meals = Meal.query.all()
+    list_meals = []
+    for meal in meals:
+        list_meals.append({"name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
+    return jsonify({"meals": list_meals})
+
 if __name__ == "__main__":
     app.run(debug=True)
