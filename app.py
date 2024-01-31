@@ -13,7 +13,6 @@ def create_meal():
     data = request.json
     name = data.get('name')
     description = data.get('description')
-    print(name, description)
 
     if name and description:
         meal = Meal(name=name, description=description, on_diet=False, chronology=datetime.now())
@@ -28,7 +27,6 @@ def list_meals():
     meals = Meal.query.all()
     list_meals = []
     for meal in meals:
-        print("MEAL: ", meal.id)
         list_meals.append({"id": meal.id, "name": meal.name, "description": meal.description, "on_diet": meal.on_diet, "chronology": meal.chronology})
     return jsonify({"meals": list_meals})
 
@@ -57,7 +55,8 @@ def update_meal(meal_id):
         meal.name = data.get('name') if data.get('name') else meal.name
         meal.description = data.get('description') if data.get('description') else meal.name
         meal.on_diet = data.get('on_diet') if data.get('on_diet') else meal.on_diet
-        meal.chronology = datetime.now()
+        chronology = datetime.strptime(data.get('chronology'), "%d/%m/%y %H:%M") if data.get('chronology') else datetime.now()
+        meal.chronology = chronology
         db.session.commit()
         return jsonify({"message": f"Meal '{meal.name}' updated"})
     
